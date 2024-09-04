@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Instagram</title>
+  <meta name="description" content="" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+  
+  <style>
+    
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      width: 100vw;
+      height: 100vh;
+      background: #090B0F;
+    }
+
+
+
+    form {
+      width: auto;
+      padding: 0.3rem;
+      background: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 0.3rem;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    input[type="text"] {
+      width: 60vw;
+      padding: 0.2rem;
+      outline: 0;
+      font-size: 70%;
+      font-weight: 500;
+      color: #090B0F;
+      border-color: #fff;
+      margin: 0.3rem;
+      border-radius: 0.3rem;
+    }
+
+    input[type="submit"] {
+      padding: 0.6rem 0.9rem;
+      display: block;
+      border-radius: 2rem;
+      background: #090B0F;
+      border: 0;
+      outline: 0;
+      color: white;
+      margin: auto auto;
+      font-weight: 600;
+      font-size: 80%
+    }
+    .logo{
+      width: 4rem;
+      height: 4rem;
+      border-radius: 1rem;
+      margin: auto;
+      background: #FF0069;
+      position: relative;
+    }
+    
+
+    img {
+      
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+
+    <form class="adds" method="POST" action="/user/editInfo" enctype="multipart/form-data" >
+      <div class="logo" >
+        <input type="file" name="image-input" id="image-input">
+        
+        <img <% if(profile != "") {%> src="<%= profile %>" <% } else {%> style="display:none;"<% }%> alt="" class="logo-img">
+      </div>
+      <input type="text" name="username" id="username" placeholder="enter new username" value="<%= username %>" required>
+      <input type="text" name="bio" value="<%= bio %>" id="bio" placeholder="edit bio" required>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  <script>
+    let imageInput = document.querySelector('#image-input');
+    document.querySelector('.logo').addEventListener('click',() => {
+      imageInput.click()
+    })
+    imageInput.addEventListener('change', (e) => {
+      console.log(e.target.files[0])
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(e.target.files[0]);
+      //imageInput.value = "";
+      oFReader.onload = function(oFREvent) {
+        let img = document.querySelector('.logo-img')
+        img.src = oFREvent.target.result;
+        img.style.display = "block";
+      };
+    })
+    
+  </script>
+</body>
+
+</html>
