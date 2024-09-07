@@ -177,6 +177,54 @@ let removeLoader = () => {
   document.querySelector('.loader').style.display = "none";
   
 }
+//function to fetch reels
+let fetchReels = async () => {
+  const responce = await fetch('/api/getReels');
+  const data = await responce.json();
+  //document.querySelector('body').innerHTML = JSON.stringify(data[0])
+  console.log(data);
+  data.forEach((key) => {
+    //document.querySelector('body').innerHTML = JSON.stringify(key)
+    const reel = `
+  <div class="reel">
+          <div class="video">
+            <video src="/api/video/:csniebuhwm7lujqajend" type="video/mp4" autoplay muted loop></video>
+
+          </div>
+          <div class="Info">
+            <div class="userInfo">
+              <img src="./assets/images (7).jpeg" alt="" />
+              <p>${key.username}</p>
+            </div>
+            <div class="description">
+              <div class="description-data">
+                <p>Lorem ipsum dolor sit amet. Eos ratione voluptates eum voluptates exercitationem qui error dolorem non ipsum corporis aut nesciunt sapiente est tenetur repellendus! <strong>read more</strong></p>
+
+              </div>
+            </div>
+          </div>
+          <div class="controls">
+            <div class="actions">
+              <div>
+                <i class="fa-regular fa-heart fa-2xl"></i>
+              </div>
+              <div>
+                <i class="fa-regular fa-comment-dots fa-2xl"></i>
+              </div>
+              <div>
+                <i class="fa-regular fa-paper-plane fa-2xl"></i>
+              </div>
+              <div>
+                <i class="fa-solid fa-ellipsis-vertical fa-2xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>`
+    document.querySelector('.reels-page').innerHtml += reel;
+  })
+  
+  
+}
 //function to add Listners 
 let addListners = (e) => {
   updatePostsHeight();
@@ -195,6 +243,8 @@ let addListners = (e) => {
   document.querySelector('.devider').addEventListener('click', openGrid);
   document.querySelector('.profile-icon').addEventListener('click', openProfilePage);
   removeLoader();
+  //fetchReels
+  fetchReels();
 }
 
 addEventListener("DOMContentLoaded", addListners);

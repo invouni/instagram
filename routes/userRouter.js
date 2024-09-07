@@ -3,6 +3,7 @@ const router = express.Router();
 const userModel = require("../models/userModel");
 const reelsModel = require("../models/reelsModel");
 const postModel = require("../models/postModel");
+
 const upload = require("../config/muterConfig");
 const {
   cloudinaryConfig,
@@ -141,5 +142,6 @@ router.post('/addInfo', upload.single('media-input'), async (req, res) => {
     return res.send(err)
   }
 });
+
 
 module.exports = router;

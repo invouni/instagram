@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/authRouter.js");
 const userRouter = require("./routes/userRouter.js");
+const apiRouter = require("./routes/apiRouter.js");
 const mongoConnect = require("./config/mongoConnect.js");
 const loggedInMiddleware = require('./middlewares/isLoggedIn.js');
 
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/auth", authRouter);
 app.use("/user", loggedInMiddleware, userRouter);
+app.use("/api",loggedInMiddleware,apiRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
